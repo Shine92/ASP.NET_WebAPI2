@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div class="content" id="content">
+        
+    </div>
+    <div id="debug"></div>
+    <script>
+        $(function () {
+            loadAndRefreshUI();
+            //$("#debug").text("OK");
+        })
+
+        function loadAndRefreshUI() {
+            $.ajax({
+                type: "get",
+                url: "/api/Member",
+                success: function (data) {
+                    /*objJson [{"Id":"1"},{...}]*/
+                    //var objJson = JSON.stringify(data);
+                    /*obj [object,object]*/
+                    //var obj = JSON.parse(objJson);
+                    $.each(data, function (index, obj) {
+                        var $div = $("<div></div>").text("Index: " + index + " Id: " + obj.Id + " Name: " + obj.Name);
+                        $div.appendTo("#debug");
+                        $("#debug").text();
+                    })
+                    //alert(data);
+                    
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
+        }
+
+    </script>
+</body>
+</html>
